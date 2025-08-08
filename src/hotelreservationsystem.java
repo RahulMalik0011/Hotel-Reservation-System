@@ -42,7 +42,7 @@ public class hotelreservationsystem{
                           deletereservation(connection, sc);
                           break;
                       case 0 :
-//                          exitreservation();
+                          exitreservation();
                           sc.close();
                           return;
                       default:
@@ -163,6 +163,17 @@ public class hotelreservationsystem{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    private  static  void exitreservation() throws InterruptedException {
+        System.out.print("Exit System");
+        int i = 5;
+        while (i!=0){
+            System.out.print(".");
+            Thread.sleep(500);
+            i--;
+        }
+        System.out.println();
+        System.out.println("ThankYou for using Hotel Reservaiton System");
     }
 
 }
