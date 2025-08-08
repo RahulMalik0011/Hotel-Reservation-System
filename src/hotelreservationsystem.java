@@ -33,7 +33,7 @@ public class hotelreservationsystem{
                           viewreservation(connection);
                           break;
                       case 3 :
-//                          getroom(connection, sc);
+                          getroom(connection, sc);
                           break;
                       case 4 :
 //                          updatereservation(connection, sc);
@@ -91,6 +91,28 @@ public class hotelreservationsystem{
             }
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private  static  void getroom(Connection connection, Scanner sc){
+        try{
+            System.out.print("Enter reservation id : ");
+            int resid = sc.nextInt();
+            System.out.print("Enter Guest Name : ");
+            String guestName = sc.next();
+            String sql = "SELECT room_number FROM Reservations WHERE reservation_id = " + resid + " AND guest_name = '" + guestName + "'";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()){
+                int roomnumber = resultSet.getInt("room_number");
+                System.out.println("Room number for reservation id "+resid+ " and guest name "+ guestName+" is = "+roomnumber);
+            }else{
+                System.out.printf("Reservation not found for given id and guest name ");
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
