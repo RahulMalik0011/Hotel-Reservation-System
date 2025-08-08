@@ -39,7 +39,7 @@ public class hotelreservationsystem{
                           updatereservation(connection, sc);
                           break;
                       case 5 :
-//                          deletereservation(connection, sc);
+                          deletereservation(connection, sc);
                           break;
                       case 0 :
 //                          exitreservation();
@@ -139,6 +139,26 @@ public class hotelreservationsystem{
                 System.out.println("Update is successful");
             }else{
                 System.out.println("Update faild!");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private  static  void  deletereservation(Connection connection, Scanner sc){
+        try{
+            System.out.println("Enter Reservation id to delete: ");
+            int reservationid = sc.nextInt();
+//            if (!reservationexist(connection, reservationid)){
+//                System.out.println("Reservaiton not found for the given id ");
+//                return;
+//            }
+            String sql = "delete from Reservations where reservation_id = "+reservationid;
+            Statement statement = connection.createStatement();
+            int effectedrow = statement.executeUpdate(sql);
+            if (effectedrow>0){
+                System.out.println("Delete is successful");
+            }else {
+                System.out.println("Delection is faild!");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
