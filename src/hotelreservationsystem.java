@@ -36,7 +36,7 @@ public class hotelreservationsystem{
                           getroom(connection, sc);
                           break;
                       case 4 :
-//                          updatereservation(connection, sc);
+                          updatereservation(connection, sc);
                           break;
                       case 5 :
 //                          deletereservation(connection, sc);
@@ -111,6 +111,34 @@ public class hotelreservationsystem{
                 System.out.println("Room number for reservation id "+resid+ " and guest name "+ guestName+" is = "+roomnumber);
             }else{
                 System.out.printf("Reservation not found for given id and guest name ");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private  static  void updatereservation(Connection connection, Scanner sc){
+        try{
+            System.out.print("Enter Reservation id to update : ");
+            int reservationid = sc.nextInt();
+//            if (!reservationexist(connection, reservationid)){
+//                System.out.println("Reservaiton not found for the given id ");
+//                return;
+//            }
+            System.out.print("Enter guest name : ");
+            String guestname = sc.next();
+            sc.nextLine();
+            System.out.print("Enter room number : ");
+            int roomnumber= sc.nextInt();
+            System.out.print("Enter contect number : ");
+            String contectnumber = sc.next();
+
+            String sql = "update Reservations set guest_name = '"+guestname+"', room_number = "+roomnumber+", contuct_number = '"+contectnumber+"' where reservation_id = "+reservationid;
+            Statement statement = connection.createStatement();
+            int effectedrow = statement.executeUpdate(sql);
+            if (effectedrow>0){
+                System.out.println("Update is successful");
+            }else{
+                System.out.println("Update faild!");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
