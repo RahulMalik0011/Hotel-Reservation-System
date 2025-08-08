@@ -30,7 +30,7 @@ public class hotelreservationsystem{
                           reservationroom(connection, sc);
                           break;
                       case 2 :
-//                          viewreservation(connection);
+                          viewreservation(connection);
                           break;
                       case 3 :
 //                          getroom(connection, sc);
@@ -76,5 +76,23 @@ public class hotelreservationsystem{
         }
     }
 
+    private  static  void viewreservation(Connection connection){
+        String sql = "select * from Reservations";
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                int reservationid = resultSet.getInt("reservation_id");
+                String gustname = resultSet.getString("guest_name");
+                int roomnumber = resultSet.getInt("room_number");
+                String contectnumber = resultSet.getString("contuct_number");
+                String reservationtime = resultSet.getString("reservation_time");
+                System.out.println("Reservation Id : "+reservationid+", Guest Name : "+gustname+", Room No : "+roomnumber+", Contuct No : "+contectnumber+", Reservation Time : "+reservationtime);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
