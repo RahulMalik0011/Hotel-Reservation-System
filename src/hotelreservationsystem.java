@@ -120,10 +120,10 @@ public class hotelreservationsystem{
         try{
             System.out.print("Enter Reservation id to update : ");
             int reservationid = sc.nextInt();
-//            if (!reservationexist(connection, reservationid)){
-//                System.out.println("Reservaiton not found for the given id ");
-//                return;
-//            }
+            if (!reservationexist(connection, reservationid)){
+                System.out.println("Reservaiton not found for the given id ");
+                return;
+            }
             System.out.print("Enter guest name : ");
             String guestname = sc.next();
             sc.nextLine();
@@ -148,10 +148,10 @@ public class hotelreservationsystem{
         try{
             System.out.println("Enter Reservation id to delete: ");
             int reservationid = sc.nextInt();
-//            if (!reservationexist(connection, reservationid)){
-//                System.out.println("Reservaiton not found for the given id ");
-//                return;
-//            }
+            if (!reservationexist(connection, reservationid)){
+                System.out.println("Reservaiton not found for the given id ");
+                return;
+            }
             String sql = "delete from Reservations where reservation_id = "+reservationid;
             Statement statement = connection.createStatement();
             int effectedrow = statement.executeUpdate(sql);
@@ -175,5 +175,16 @@ public class hotelreservationsystem{
         System.out.println();
         System.out.println("ThankYou for using Hotel Reservaiton System");
     }
+    private  static  boolean reservationexist(Connection connection, int reservaitonid){
+        try{
+            String sql = "select reservation_id from Reservations where reservation_id = "+reservaitonid;
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            return  resultSet.next();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
