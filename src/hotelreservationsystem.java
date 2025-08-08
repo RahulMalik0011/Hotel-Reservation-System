@@ -27,7 +27,7 @@ public class hotelreservationsystem{
                   int choice = sc.nextInt();
                   switch (choice){
                       case 1 :
-//                          reservationroom(connection, sc);
+                          reservationroom(connection, sc);
                           break;
                       case 2 :
 //                          viewreservation(connection);
@@ -53,5 +53,28 @@ public class hotelreservationsystem{
               throw new RuntimeException(e);
           }
     }
+    private static void reservationroom(Connection connection, Scanner sc){
+        try{
+            System.out.print("Enter guest name : ");
+            String gust_name = sc.next();
+            sc.nextLine();
+            System.out.print("Enter room number : ");
+            int room_number = sc.nextInt();
+            System.out.print("Enter contect number : ");
+            String contect_number = sc.next();
+
+            String sql = "insert into Reservations(guest_name, room_number, contuct_number) values('"+gust_name+"',"+room_number+",'"+contect_number+"')";
+            Statement statement = connection.createStatement();
+            int effectedrow = statement.executeUpdate(sql);
+            if (effectedrow>0){
+                System.out.println("Reservation successful");
+            }else {
+                System.out.println("Reservation faild");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
